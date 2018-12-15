@@ -1,0 +1,28 @@
+<div class="messages container" style="min-height: 800px;">
+  <div class="message row" *ngFor="let message of messages" 
+  [ngStyle]="{'border-color':message.user === 'ADMIN' ? 'green' : '#673ab7', 
+  'margin-right': message.user === userName ? '0' : 'auto',
+  'margin-left': message.user === userName ? 'auto' : '0' }">
+    <p>
+      <span class="user-name" *ngIf="message.user===userName">You</span>
+      <span class="user-name" *ngIf="message.user!==userName">{{message.user}}</span>
+      <br/> {{message.data}}
+    </p>
+  </div>
+</div>
+<form [formGroup]="chat">
+  <div class="row">
+    <div class="col-xs-11">
+      <mat-form-field>
+        <input type="text" matInput placeholder="Message" formControlName="inputMessage">
+      </mat-form-field>
+    </div>
+    <div class="col-xs-1">
+      <button type="submit" mat-mini-fab color="primary" 
+      [disabled]="!chat.valid"
+      (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>

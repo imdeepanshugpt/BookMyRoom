@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="row" style="margin-left: 0; margin-right: 0">
+        <h3>{{errorMessage}}</h3>
+        <div class=" col-sm-4 col-md-4 col-lg-4" style="margin-bottom: 10px;" *ngFor="let  userhistory of (history)">
+            <mat-card class="example-card">
+                <mat-card-content>
+                    <h3>BookingId : {{userhistory.bookingReferenceID}}</h3>
+                    <h5>Hotel Name : {{userhistory.hotelName}}</h5>
+                    <h5>Amount : {{userhistory.totalAmount}}</h5>
+                    <h5>Rooms : {{userhistory.bookedRooms}}</h5>
+                    <h5>Guests : {{userhistory.bookedGuests}}</h5>
+                    <h5>Check-in date : {{userhistory.checkIn}}</h5>
+                    <h5>Check-out date : {{userhistory.checkOut}}</h5>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

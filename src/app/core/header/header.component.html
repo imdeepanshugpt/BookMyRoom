@@ -1,0 +1,37 @@
+<mat-toolbar class="app-toolbar" color="primary">
+    <mat-toolbar-row>
+        <a matTooltip="Home" mat-button routerLink="/"><h3><span>BookMyRoom</span></h3></a>
+        <span class="example-spacer"></span>
+
+        
+        <a matTooltip="Admin Dashboard" mat-button
+        *ngIf="((isAuthenticated | async).name === 'ADMIN')&&(isAuthenticated | async).authenticated" 
+        routerLink='admin'>{{name}}</a>
+        
+        <a matTooltip="Manager Dashboard" mat-button
+         *ngIf="(isAuthenticated | async ).manager" 
+         routerLink='manager'>{{name}}</a> 
+
+        <a matTooltip="Profile" mat-button 
+        *ngIf="(isAuthenticated | async).authenticated && (isAuthenticated | async).name !== 'ADMIN' && !((isAuthenticated | async ).manager)" 
+        routerLink='editProfile'>{{name}}</a>
+        
+        <a  
+        *ngIf = "!(isAuthenticated | async).manager && !(isAuthenticated | async).authenticated" 
+        matTooltip="Business Login" mat-button routerLink="/"
+        (click)="openManagerDialog()"
+        ><h3><span>Business Login</span></h3></a>   
+
+        <a matTooltip="Sign in" mat-button 
+        *ngIf="!(isAuthenticated | async).authenticated"
+         (click)="openDialog()">
+        <mat-icon class="example-icon">account_circle</mat-icon></a>
+
+        <a matTooltip="Sign out" mat-button 
+        *ngIf="(isAuthenticated | async).authenticated " (click)="signOut()"><mat-icon class="example-icon">exit_to_app</mat-icon></a> 
+
+
+             <a matTooltip="Chat" mat-button routerLink='chat'><mat-icon>chat</mat-icon></a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    

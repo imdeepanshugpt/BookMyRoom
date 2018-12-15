@@ -1,0 +1,39 @@
+<div class="search-bar container">
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <mat-form-field class="city v">
+        <input type="text" placeholder="City*" autocomplete="off" matInput [formControl]="myControl" [matAutocomplete]="auto" #city class="city">
+        <span>{{errorMessage}}</span>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+      <div class="col-md-3 col-sm-6">
+      <mat-form-field>
+        <input readonly = 'true' matInput [min]="minDate" [matDatepicker]="picker1" autocomplete="off" placeholder="Check-in date*" style="color:black; cursor:none;"
+        class="checkin"
+          #checkin>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+      <div class="col-md-3 col-sm-6">
+      <mat-form-field>
+        <input readonly = 'true' matInput [min]="minDate" [matDatepicker]="picker2" autocomplete="off" placeholder="Check-out date*" style="color:black;cursor:none;"
+        class="checkout"
+          #checkout>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+   <div class="col-md-3 col-sm-6">
+        <button mat-raised-button color="primary"
+        class="search-btn"
+        (click)="searchHotel(checkin.value,checkout.value,city.value)"
+        [disabled]="! ( checkin.value && checkout.value && city.value )">Search </button>
+   </div>
+    </div>
+  </div>

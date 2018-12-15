@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+      <ol class="breadcrumb">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/hotel"  >Search</a></li>
+          <li class="active">Compare</li>
+        </ol> 
+  </div>
+  <div class="row" *ngIf = "hotelNumber === 4" >
+    <div class=" col-sm-6 col-md-3 col-lg-3" *ngFor="let hotel of compareHotels">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h4>{{hotel.hotelName}}</h4>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="hotel.imageUrls.img1" alt="Photo of a Hotel">
+        <mat-card-content>
+          <h5>Hotel Price : <b><span>&#8377;</span>{{hotel.hotelPrice}}</b></h5>
+          <hr>
+          <h5>Hotel Category: <b>{{hotel.hotelCategory}}</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.ac">Air-Conditioner: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.ac">Air-Conditioner: <b>Not-Available</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.wifi">WIFI: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.wifi">WIFI: <b>Not-Available</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.food">Food: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.food">Food: <b>Not-Available</b></h5>
+          <hr>
+         <h5>Hotel Rating: <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating></h5>
+          <!-- <h5>Hotel Rating: <b>{{hotel.hotelAverageRating}}</b></h5> -->
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="BookNow(hotel);">Book Now</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row" *ngIf = "hotelNumber === 3" >
+    <div class = "col-lg-1 col-md-1"></div>
+    <div class=" col-sm-6 col-md-3 col-lg-3" *ngFor="let hotel of compareHotels">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h4>{{hotel.hotelName}}</h4>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="hotel.imageUrls.img1" alt="Photo of a Hotel">
+        <mat-card-content>
+          <h5>Hotel Price : <b><span>&#8377;</span>{{hotel.hotelPrice}}</b></h5>
+          <hr>
+          <h5>Hotel Category: <b>{{hotel.hotelCategory}}</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.ac">Air-Conditioner: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.ac">Air-Conditioner: <b>Not-Available</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.wifi">WIFI: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.wifi">WIFI: <b>Not-Available</b></h5>
+          <hr>
+          <h5 *ngIf="hotel.hotelFeatures.food">Food: <b>Available</b></h5>
+          <h5 *ngIf="!hotel.hotelFeatures.food">Food: <b>Not-Available</b></h5>
+          <hr>
+          <h5>Hotel Rating: <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating></h5>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="BookNow(hotel);">Book Now</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class = "col-lg-1 col-md-1"></div>
+  </div>
+
+  <div class="row" *ngIf = "hotelNumber === 2" >
+      <div class = "col-lg-3 col-md-3"></div>
+      <div class=" col-sm-6 col-md-3 col-lg-3" *ngFor="let hotel of compareHotels">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>
+              <h4>{{hotel.hotelName}}</h4>
+            </mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="hotel.imageUrls.img1" alt="Photo of a Hotel">
+          <mat-card-content>
+            <h5>Hotel Price : <b><span>&#8377;</span>{{hotel.hotelPrice}}</b></h5>
+            <hr>
+            <h5>Hotel Category: <b>{{hotel.hotelCategory}}</b></h5>
+            <hr>
+            <h5 *ngIf="hotel.hotelFeatures.ac">Air-Conditioner: <b>Available</b></h5>
+            <h5 *ngIf="!hotel.hotelFeatures.ac">Air-Conditioner: <b>Not-Available</b></h5>
+            <hr>
+            <h5 *ngIf="hotel.hotelFeatures.wifi">WIFI: <b>Available</b></h5>
+            <h5 *ngIf="!hotel.hotelFeatures.wifi">WIFI: <b>Not-Available</b></h5>
+            <hr>
+            <h5 *ngIf="hotel.hotelFeatures.food">Food: <b>Available</b></h5>
+            <h5 *ngIf="!hotel.hotelFeatures.food">Food: <b>Not-Available</b></h5>
+            <hr>
+            <h5>Hotel Rating: <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating></h5>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="BookNow(hotel);">Book Now</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class = "col-lg-3 col-md-3"></div>
+    </div>
+</div>

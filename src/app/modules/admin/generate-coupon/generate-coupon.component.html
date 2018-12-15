@@ -1,0 +1,37 @@
+<div>
+  <h4>Add coupon</h4>
+</div>
+<form [formGroup]="couponForm">
+  <div><mat-form-field>
+    <input matInput 
+    color="primary"
+    id="exampleInputAmount" 
+    placeholder="Coupon*" 
+    value="{{coupon}}" 
+    autocomplete="off" 
+    #referralcode
+    formControlName="couponCode">
+  </mat-form-field></div>
+  <div>
+    <button mat-raised-button color="primary" (click)="generate()">Generate</button>
+  </div>
+  <div><mat-form-field>
+    <input matInput 
+    type="number"
+    id="exampleInputAmount" 
+    onkeydown="status : return ( event.keyCode == 69 || event.keyCode == 189 || event.keyCode == 187 ) ? false : true"
+    formControlName="amount" 
+    placeholder="Amount*" 
+    autocomplete="off" 
+    #amount 
+    oninput="validity.valid||(value='');"
+    min="0">
+  </mat-form-field></div>
+  <div>
+    <button type="submit" 
+    mat-raised-button 
+    color="primary" 
+    (click)="addcoupon(referralcode.value,amount.value)" 
+    [disabled]='!couponForm.valid || !referralcode.value'>Add coupon</button>
+  </div>
+</form>

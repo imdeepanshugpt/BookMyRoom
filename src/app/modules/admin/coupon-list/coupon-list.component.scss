@@ -1,0 +1,30 @@
+// .example-card {
+//     height: 360px; 
+// }
+mat-card {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-style: dashed;
+    border-color: gray;
+  }
+img {
+    object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+    height: 250px;
+  }
+.example-header-image {
+    background-size: cover;
+}
+.del-btn{
+    float: right;
+}
+.coupon-code{
+    background-color:rgba(88,172,0,.13);
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.fixedButton {
+    position: fixed;
+    top: 17%;
+    right: 2%;
+    z-index: 1000;
+}

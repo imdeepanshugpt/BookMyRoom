@@ -1,0 +1,43 @@
+// .example-form {
+//   min-width: 150px;
+//   max-width: 500px;
+//   width: 100%;
+// }
+
+.example-full-width {
+  margin: 20px;
+  width: 50%;
+}
+
+.button {
+  margin: 0 auto;
+}
+
+.fixedButtonHotel {
+  position: fixed;
+  top: 17%;
+  right: 2%;
+  z-index: 1000;
+}
+
+.container {
+  text-align: center;
+}
+
+img {
+  object-fit: cover;
+  /*this makes de image in src fit to the size of specified below*/
+  height: 250px;
+}
+
+.delete-button {
+  margin-left: 5%;
+}
+mat-card {
+    height: 525px;
+}
+mat-tab-group{
+  height: 100%;
+}
+
+

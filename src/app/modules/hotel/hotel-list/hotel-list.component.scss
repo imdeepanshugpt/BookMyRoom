@@ -1,0 +1,76 @@
+.example-container {
+  width: 100%;
+  height: 800px;
+}
+
+.example-sidenav-content {
+  height: 100%;
+}
+.example-sidenav {
+  color:#3b0944;
+  padding: 20px;
+}
+.example-section{
+    padding: 10px;
+}
+.example-card {
+  max-width: 400px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+mat-menu {
+  position: absolute;
+  margin-top: -18%
+}
+mat-card {
+  // margin-bottom: 5%;
+  box-shadow: 5%;
+}
+img {
+  object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+  height: 250px;
+}
+.spacer {
+  margin-left: 2%;
+}
+
+.spacer-filters {
+  margin-right: 5%;
+}
+mat-expansion-panel {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 60px; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+.filters {
+  position: relative; 
+  margin: 0 auto;  
+}
+
+.filter-container {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.fixedButton {
+  position: fixed;
+  bottom: 0%;
+  right: 0%;
+  z-index: 1000;
+  width: 100%;
+}
+.compareCheckBox {
+  margin-left: 50%;
+}
+.compareCheckBoxDiv {
+  margin-left: 2%;
+  margin-top: 2%;
+}
+.col-sm-6 {
+  margin-top: 5%;
+}
+mat-card {
+  height: 580px;
+}

@@ -1,0 +1,110 @@
+<mat-tab-group>
+  <mat-tab label="Edit Profile">
+    <div class="container">
+    <h2 style="text-align: center">User Profile</h2>
+    <h4 style="text-align: center">Email Id: {{userEmail}}</h4>
+    <form [formGroup]="editProfile" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <h3 style="color:purple">Edit Your Details</h3>
+            <div class="row">
+              <h4>Name</h4>
+              <mat-form-field>
+                <input type="text" name="username" minlength="5" maxlength="31" placeholder="Edit User name" matInput value={{userName}}
+                  autocomplete="off" formControlName="name">
+              </mat-form-field>
+              <div *ngIf="name.errors?.minlength">
+                <span>
+                  Name must be at least 5 characters long.
+                  </span>
+              </div>
+              <div *ngIf="name.errors?.maxlength">
+                <span>
+              Name can't be 40 characters long.
+               </span>
+              </div>
+              <div *ngIf="name.errors?.pattern">
+                <span>
+            Name can't contain numbers, special characters and can't start with space
+            </span>
+              </div>
+            </div>
+    
+            <div class="row">
+              <h4>Mobile</h4>
+              <mat-form-field>
+                <input type="tel" placeholder="Edit Mobile number" matInput value={{userMobile}} minlength="10" maxlength="10" autocomplete="off"
+                  formControlName="mobile">
+              </mat-form-field>
+              <div *ngIf="mobile.errors?.pattern">
+                <span>
+      Invalid Mobile Number
+      </span>
+              </div>
+            </div>
+            <div class="row">
+              <h4>Gender</h4>
+              <mat-form-field>
+                <mat-select placeholder="Edit Gender" value={{userGender}} formControlName="gender">
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <h4>Age</h4>
+              <mat-form-field>
+                <input matInput placeholder="Edit Age" type="number" autocomplete = "off" value={{userAge}} formControlName = "age">
+              </mat-form-field>
+              <div *ngIf="age.errors?.min">
+                  <span>
+        Minimum age to register is 16
+        </span>
+                </div>
+                <div *ngIf="age.errors?.max">
+                    <span>
+          Mamimum age is 100
+          </span>
+                  </div>
+            </div>
+            <div class="row">
+              <h4>City</h4>
+              <mat-form-field>
+                <input type="text" 
+                matInput 
+                formControlName="city" 
+                value={{userCity}}
+                [matAutocomplete]="auto"
+                placeholder=" Edit City">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+              <span>{{errorMessage}}</span>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <button [disabled] = "disabled || editProfile.invalid" mat-raised-button color="accent" value="submit">Save</button>
+              
+            </div>
+            <br>
+            
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button mat-raised-button color="primary" *ngIf="subscribe" (click)="onUnsubscribe()">Unsubscribe<i class="material-icons">
+        notification_important
+        </i></button>
+      <button mat-raised-button color="primary" *ngIf="!subscribe" (click)="onSubscribe()">Subscribe<i class="material-icons">
+        notification_important
+        </i></button>
+    </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="View Booking History"> <app-booking-history></app-booking-history> </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,175 @@
+<h3>Add hotel</h3>
+<form class="example-form" [formGroup]="addHotel">
+  <div class="container">
+    <mat-form-field>
+      <input required matInput autocomplete = "off" formControlName="hotelName" placeholder="Name of the hotel">
+      <mat-error *ngIf="hotelName.invalid">
+        Should contain 5-40 letters of the alphabet only.
+      </mat-error>
+    </mat-form-field>
+    <hr>
+    <h4>Address</h4>
+    <div formGroupName="hotelAddress">
+      <mat-form-field>
+        <input required matInput formControlName="hotelStreet" autocomplete = "off" placeholder="Street">
+        <mat-error *ngIf="hotelStreet.invalid">
+          Should contain 3-60 letters of the alphabet only.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input required type="text" placeholder="City" matInput formControlName="hotelCity" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let city of filteredOptions | async" [value]="city">
+            {{city}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <p *ngIf="errorMessage!==''">{{errorMessage}}</p>
+      <mat-form-field>
+        <mat-select required formControlName="hotelState" placeholder="State">
+          <mat-option *ngFor="let state of states" [value]="state">
+            {{state}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input required matInput formControlName="hotelPin"autocomplete = "off" placeholder="PIN" maxlength="6">
+        <mat-error *ngIf="hotelPin.invalid">
+          Should be 6 digits only.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select required formControlName="hotelCountry" placeholder="Country">
+          <mat-option value="India">
+            India
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <hr>
+    <h4>
+      Images
+    </h4>
+    <div formGroupName="hotelImage">
+      <mat-form-field>
+        <input required matInput formControlName="hotelImg1" autocomplete = "off" placeholder="URL #1">
+      </mat-form-field>
+      <p *ngIf="hotelImg1.errors?.pattern">Should start with http:// or https://</p>
+      <br>
+      <mat-form-field>
+        <input required matInput formControlName="hotelImg2" autocomplete = "off" placeholder="URL #2">
+      </mat-form-field>
+      <p *ngIf="hotelImg2.errors?.pattern">Should start with http:// or https://</p>
+      <br>
+      <mat-form-field>
+        <input required matInput formControlName="hotelImg3" autocomplete = "off" placeholder="URL #3">
+      </mat-form-field>
+      <p *ngIf="hotelImg3.errors?.pattern">Should start with http:// or https://</p>
+      <br>
+    </div>
+
+    <hr>
+    <mat-form-field *ngIf = '!subAdmin'>
+      <input required matInput formControlName="hotelManagerEmail" placeholder="Business email" value="">
+      <mat-error *ngIf="hotelManagerEmail.invalid">
+        Should be a valid email.
+      </mat-error>
+    </mat-form-field>
+
+     <mat-form-field *ngIf = 'subAdmin'>
+        <input  matInput readonly formControlName="hotelManagerEmail" placeholder="Business email" value="{{managerEmail}}">
+      </mat-form-field> 
+    <mat-form-field>
+      <input required matInput formControlName="hotelRegistrationNumber" placeholder="Hotel registration number" maxlength="3">
+      <mat-error *ngIf="hotelRegistrationNumber.invalid">
+        Should be 3 digits only.
+      </mat-error>
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <mat-select required formControlName="hotelCategory" placeholder="Category">
+        <mat-option value="Luxury">
+          Luxury
+        </mat-option>
+        <mat-option value="Standard">
+          Standard
+        </mat-option>
+        <mat-option value="Budget">
+          Budget
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <input required matInput formControlName="hotelPrice" autocomplete = "off" placeholder="Price per room" >
+      <mat-error *ngIf="hotelPrice.invalid">
+        Should be a number.
+      </mat-error>
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <mat-select required formControlName="hotelRoomCount" placeholder="Number of available rooms">
+        <mat-option *ngFor="let room of rooms" [value]="room">
+          {{room}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <hr>
+    <h4>Amenities</h4>
+    <div formGroupName="hotelFeatures">
+      <mat-form-field>
+        <mat-select formControlName="hotelAC" placeholder="Is AC available?">
+          <mat-option value="YES">
+            Yes
+          </mat-option>
+          <mat-option value="NO">
+            No
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="hotelWiFi" placeholder="Is WiFi available?">
+          <mat-option value="YES">
+            Yes
+          </mat-option>
+          <mat-option value="NO">
+            No
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="hotelFood" placeholder="Is food available?">
+          <mat-option value="YES">
+            Yes
+          </mat-option>
+          <mat-option value="NO">
+            No
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <hr>
+    <button class="btn btn-primary" (click)="onAdd()" [disabled]="!(addHotel.get('hotelName').valid&& addHotel.get('hotelAddress.hotelStreet').valid 
+      && addHotel.get('hotelAddress.hotelStreet').valid 
+      && addHotel.get('hotelAddress.hotelCity').valid
+      && bool
+      && addHotel.get('hotelAddress.hotelState').valid
+      && addHotel.get('hotelAddress.hotelPin').valid
+      && addHotel.get('hotelAddress.hotelCountry').valid
+      && addHotel.get('hotelImage.hotelImg1').valid
+      && addHotel.get('hotelImage.hotelImg2').valid
+      && addHotel.get('hotelImage.hotelImg3').valid
+      && addHotel.get('hotelManagerEmail').valid
+      && addHotel.get('hotelRegistrationNumber').valid
+      && addHotel.get('hotelPrice').valid
+      && addHotel.get('hotelCategory').valid
+      && addHotel.get('hotelRoomCount').valid
+      && addHotel.get('hotelFeatures.hotelAC').valid
+      && addHotel.get('hotelFeatures.hotelWiFi').valid
+      && addHotel.get('hotelFeatures.hotelFood').valid)
+      ">ADD HOTEL</button>
+      <a (click)="onClose()">cancel</a>
+    </div>
+</form>

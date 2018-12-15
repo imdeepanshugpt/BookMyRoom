@@ -1,0 +1,86 @@
+<mat-tab-group>
+  <mat-tab label="Hotels">
+    <div class="container">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Search by City" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"
+          #city required>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <span style="color:red">{{errorMessage}}</span>
+      <button type="submit" mat-raised-button color="primary" (click)="onSearch(city)" [disabled]="!(myControl.valid&&bool)">Search</button>
+
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Search by ManagerEmail" aria-label="Number" matInput [formControl]="myControlEmail" [matAutocomplete]="auto1"
+          #email required>
+
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+          <mat-option *ngFor="let option1 of filteredOptions1 | async" [value]="option1">
+            {{option1}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <span style="color:red">{{errorMessage1}}</span>
+      <button type="submit" mat-raised-button color="primary" (click)="onSearchEmail(email)" [disabled]="!(myControlEmail.valid&&bool1)">Search</button>
+
+
+
+      <!-- card will come here -->
+      <div>
+          <h1 style="text-align:center; color:purple">{{searchMessage}}</h1>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4" style="list-style-type:none" *ngFor="let hotel of ((hotels | async).hotels) | paginate:{itemsPerPage: 6, currentPage: page}">
+          <br>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>
+                <h4>{{hotel.hotelName}}</h4>
+              </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="hotel.imageUrls.img1" [alt]="hotel.hotelName" height="250px" width="100%">
+            <mat-card-content>
+              <h4>
+                <span>&#8377;</span>{{hotel.hotelPrice}}
+              </h4>
+              <h5>
+                <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating>
+              </h5>
+              <p>
+                <i class="fa fa-map-marker"></i> {{hotel.hotelAddress.city}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-flat-button color="primary" (click)="onEdit(hotel)">Edit</button>
+              <button class="delete-button" mat-flat-button color="primary" (click)="onDelete(hotel.hotelRegistrationNumber,hotel.hotelAddress.city)">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+  
+        </div>
+      <!-- card end here -->
+      <pagination-controls (pageChange)="page=$event" class="page"
+      style="margin-top: 20px; padding-top: 10px; text-align: center; font-size: 1.5em;"
+      ></pagination-controls>
+    </div>
+    <!-- <div class="container-fluid">
+
+    </div> -->
+
+    <button mat-fab color="primary" matTooltip="Add hotel" (click)="onAdd()" class="fixedButtonHotel">
+      <i class="material-icons">add</i>
+    </button>
+  </mat-tab>
+  <mat-tab label="Dashboard">
+    <app-dashboard></app-dashboard>
+  </mat-tab>
+  <mat-tab label="Manager Request">
+    <app-approve-request></app-approve-request>
+  </mat-tab>
+
+  <mat-tab label="Coupons">
+    <app-coupon-list [showAdminButtons]="true"></app-coupon-list>
+  </mat-tab>
+</mat-tab-group>
+

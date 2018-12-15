@@ -1,0 +1,26 @@
+<button 
+*ngIf="!isManager"
+mat-raised-button class="google-sign-in" (click)="googleSignIn()"><i class="fa fa-google"></i>
+  <span style="margin-right:3%;"></span>
+  Sign in with Google</button>
+
+<h6 *ngIf="!isManager">
+  <span>Or</span>
+</h6>
+
+<form [formGroup]="loginForm">
+  <mat-form-field>
+    <input type="text" matInput placeholder="Email" autocomplete="off" required formControlName="email" #email>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" required autocomplete="off"  formControlName="password" #password>
+  </mat-form-field>
+  <p>{{invalidCredentials}}</p>
+  <button 
+  *ngIf="!isManager"
+  type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Login</button>
+  <button 
+  *ngIf="isManager"
+  mat-raised-button color="primary" (click) = "loginManager()">Login as Manager</button>
+</form>

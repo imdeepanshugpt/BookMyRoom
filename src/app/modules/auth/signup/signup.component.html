@@ -1,0 +1,106 @@
+<button 
+*ngIf="!isManager"
+mat-raised-button 
+class="google-sign-up"
+(click)="googleSignUp()"  
+><i class="fa fa-google"></i>
+<span style="margin-right:3%;"></span>
+Sign up with Google</button> 
+
+<form [formGroup]="signupForm">
+<h6 *ngIf="!isManager"><span>Or</span></h6>
+<mat-form-field>
+  <input type="text" 
+  matInput 
+  placeholder="Full Name" 
+  value=""
+  autocomplete="name"
+  required
+  formControlName="name">
+</mat-form-field>
+
+<mat-form-field>
+  <input type="email" 
+  matInput 
+  placeholder="Email" 
+  value=""
+  autocomplete="email"
+  required
+  formControlName="email">
+  <mat-error *ngIf="signupForm.controls.email.invalid">Not a valid email</mat-error>  
+</mat-form-field>
+
+
+<mat-form-field>
+  <input type="password" 
+  matInput 
+  placeholder="Password" 
+  minlength="8" 
+  required 
+  value="" 
+  autocomplete="current-password"
+  formControlName="password">
+  <mat-error *ngIf="signupForm.controls.password.invalid">
+    Must be 8-15 characters & have at least an uppercase letter, a number, a special character
+  </mat-error>
+</mat-form-field>
+
+<mat-form-field>
+  <input type="tel" 
+  minlength="10" 
+  maxlength="10" 
+  matInput 
+  placeholder="Mobile number" 
+  value=""
+  autocomplete="tel"
+  required
+  formControlName="mobile">
+</mat-form-field>
+
+<mat-form-field>
+    <mat-select 
+    placeholder="Gender" 
+    value="female"
+    formControlName="gender">
+      <mat-option value="male">Male</mat-option>
+      <mat-option value="female">Female</mat-option>
+    </mat-select>
+</mat-form-field>
+
+  <mat-form-field>
+      <input type="number" 
+      matInput 
+      placeholder="Age" 
+      min="16" 
+      max="100"
+      required
+      formControlName="age">
+      <mat-error *ngIf="signupForm.controls.age.invalid">
+          16-100 are valid ages.
+      </mat-error>        
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="text" 
+      matInput 
+      formControlName="city" 
+      [matAutocomplete]="auto"
+      placeholder="City">
+      <span class="error-message">{{errorMessage}}</span>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <button type="submit" [disabled]="!signupForm.valid || errorMessage!==''"
+  *ngIf="!isManager"
+  mat-raised-button color="primary" (click)="signupFb()">Sign up</button> 
+  <button mat-raised-button color="primary"
+  *ngIf="isManager"
+  style="margin-left: 10px;"
+  (click) = "managerSignup()"
+  >Sign up as Manager</button>
+</form>        
+

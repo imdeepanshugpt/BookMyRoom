@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <button mat-fab color="primary" matTooltip="Add hotel" (click)="onAdd()" class="fixedButtonHotel"><i class="material-icons">add</i></button>
+    <div class="col-sm-6 col-md-4 col-lg-4" style="list-style-type:none" *ngFor="let hotel of (hotels) | paginate:{itemsPerPage: 6, currentPage: page}; let i = index;">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h4>{{hotel.hotelName}}</h4>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="hotel.imageUrls.img1" [alt]="hotel.hotelName">
+        <mat-card-content>
+          <h4>
+            <span>&#8377;</span>{{hotel.hotelPrice}}
+          </h4>
+          <h5>
+            <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating>
+          </h5>
+          <p>
+            <i class="fa fa-map-marker"></i> {{hotel.hotelAddress.city}}
+          </p>
+          <mat-chip-list>
+            <mat-chip *ngIf="hotel.hotelFeatures.ac">AC</mat-chip>
+            <mat-chip *ngIf="hotel.hotelFeatures.wifi" color="primary" selected>WiFi</mat-chip>
+            <mat-chip *ngIf="hotel.hotelFeatures.food" color="accent" selected>Food</mat-chip>
+          </mat-chip-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="onEdit(hotel)">Edit</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <pagination-controls (pageChange)="page=$event" class="page"></pagination-controls>

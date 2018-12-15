@@ -1,0 +1,147 @@
+<div class="row" style="margin-left: 10px; margin-right: 10px; ">
+    <ol class="breadcrumb">
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/hotel">Search</a></li>
+        <li class="active">ViewHotel</li>
+      </ol> 
+</div>
+<div class="container-fluid" *ngFor = 'let hotel of (hotels | async ).hotels'>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" >
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="{{ hotel.imageUrls.img1 }}" style="height:400px;width:100%" alt="...">
+          </div>
+          <div class="item">
+            <img src="{{ hotel.imageUrls.img2 }}" style="height:400px;width:100%" alt="...">
+          </div>
+          <div class="item">
+            <img src="{{ hotel.imageUrls.img3 }}" style="height:400px;width:100%" alt="...">
+          </div>
+        </div>
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="height:400px">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="height:400px">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+        <br>
+        <div class="row">
+          <mat-card-title style="color:#5f1854; margin-left: 50px"><u>Reviews and Ratings</u>        </mat-card-title>
+
+          
+          <hr>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div *ngIf = "!activate">
+                    <span *ngFor = 'let review of hotel.hotelReviews'>
+                      <p style="font-size: 20px;"><b> {{ review.customerName }} :</b>  {{ review.review }}</p>
+                      <p style="font-size: 15px;"><b>Manager : </b> {{ review.reply }}</p>
+                      <div class="row" *ngIf="able">
+                        <div class="col-md-6" style="color:#5f1854"><input matInput placeholder="Reply" autocomplete="off" (input)="onTypeReply($event)"><hr></div>
+                        <div class="col-md-6"><button mat-stroked-button style="margin-right: 10px; color: #5f1854" (click)="onSubmitReply(review.customerName)">Submit</button></div>
+                      </div>
+                    </span>
+                  </div>
+                  <div *ngIf = "activate">
+                    <div class="row" *ngIf="!able">
+                        <span *ngFor = 'let comment of newReview'>
+                            <p style="font-size: 20px;"><b>{{ comment['customerName']}} :  </b> {{ comment['review']}} </p>
+                            <p style="font-size: 15px;"><b>Manager : </b> {{ comment['reply'] }}</p>
+                          </span>
+                    </div>
+                    <div class="row" *ngIf="able">
+                        <span *ngFor = 'let comment of newReply'>
+                            <p style="font-size: 20px; "><b>{{ comment['customerName']}} :  </b> {{ comment['review']}} </p>
+                            <p style="font-size: 15px;"><b>Manager : </b> {{ comment['reply'] }}</p>
+                            <div class="row">
+                            <div class="col-md-6" style="color:#5f1854"><input matInput placeholder="Reply" autocomplete="off" value="{{ reply }}" (input)="onTypeReply($event)"><hr></div>
+                            <div class="col-md-6"><button mat-stroked-button style="margin-right: 10px; color: #5f1854" (click)="onSubmitReply(review.customerName)">Submit</button></div>
+                            </div>
+                          </span>
+                    </div>
+                    
+                  </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+          </div>
+          <div class="row" *ngIf="!able">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <form *ngIf="!able">
+                    <div class="form-group">
+                      <label for="comment" style="color:#5f1854; font-size: 20px">Comment:</label>
+                      <textarea class="form-control" rows="1" min="1" max="500" id="comment" value="{{ comment }}" 
+                      oninput="validity.valid||(value='');" (input)="onTypeReview($event)"></textarea>
+                    </div>
+                    <button mat-flat-button style="margin-right: 10px" (click)="onSubmitReview()">Add Review</button><br>
+                    <p *ngIf = "enable1"><b>Review Added Successfully</b></p>                                
+                  </form>
+            </div>
+            <div class="col-md-6" *ngIf="!able">
+              <br>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Add Rating( 1 to 5)" min="0" max="5" type="number" autocomplete="off" 
+                    value="{{ currentRate }}" oninput="validity.valid||(value='');" (input)="onRating($event)">
+                  </mat-form-field>
+                  <mat-error *ngIf="enableText" style="color:red">[Enter valid data]</mat-error>
+                  <br>
+                  <button mat-flat-button style="margin-right: 10px" (click)="onSubmitRating()" [disabled]="disable">Add Rating</button>
+                  <p *ngIf="enable2"><b>Rating Added Successfully</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <br>
+      <mat-card-subtitle style="font-size: 20px"><b>BMR <i>{{ hotel.hotelRegistrationNumber }}</i></b></mat-card-subtitle>
+      <mat-card-title style="color: #5f1854; font-size:40px">{{ hotel.hotelName }}</mat-card-title>
+      <mat-card-content style="font-size: 30px"><i class="material-icons">location_on</i>{{ hotel.hotelAddress.street }}, {{ hotel.hotelAddress.city }}, {{ hotel.hotelAddress.state }}, {{ hotel.hotelAddress.country }}, {{ hotel.hotelAddress.pin }}</mat-card-content>
+      <mat-card-content style="font-size: 25px"> <strong>Category :</strong> {{ hotel.hotelCategory }},    <span>
+          <strong>Rating :</strong>
+         <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating>
+       </span></mat-card-content>
+      <mat-card-content style="font-size: 25px"> <strong>Price :</strong> {{ hotel.hotelPrice }}</mat-card-content>
+      <!-- <span>
+      <mat-card-content style="font-size: 30px; color: #5f1854">Rating : {{ hotel.hotelAverageRating }}</mat-card-content>
+      </span> -->
+      <div class="col-md-3">
+        <mat-card-title style="font-size: 20px"><b>Amenities:</b></mat-card-title>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-card-content *ngIf="hotel.hotelFeatures.wifi"><i class="material-icons">wifi</i>Wifi</mat-card-content>
+            <mat-card-content *ngIf="!hotel.hotelFeatures.wifi"><i class="material-icons">wifi</i>Not Available</mat-card-content>
+          </div>
+          <div class="col-md-4">
+            <mat-card-content *ngIf="hotel.hotelFeatures.food"><i class="material-icons">fastfood</i>Food</mat-card-content>
+            <mat-card-content *ngIf="!hotel.hotelFeatures.food"><i class="material-icons">fastfood</i>Not Available</mat-card-content>
+          </div>
+          <div class="col-md-4">
+            <mat-card-content *ngIf="hotel.hotelFeatures.ac"><i class="material-icons">toys</i>A/C</mat-card-content>
+            <mat-card-content *ngIf="!hotel.hotelFeatures.ac"><i class="material-icons">toys</i>Not Available</mat-card-content>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <br><br>
+            <button mat-flat-button (click)="onBook(hotel)" [disabled]="enable">Book Now</button>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

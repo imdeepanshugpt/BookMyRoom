@@ -1,0 +1,125 @@
+<div class="row" style="margin-left: 10px; margin-right: 10px; ">
+    <ol class="breadcrumb">
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/hotel">Search</a></li>
+        <li class="active">Booking</li>
+      </ol> 
+</div>
+<div class="container" id="booking-container" *ngFor='let hotel of (hotels | async ).hotels'>
+  <div *ngFor='let search of (hotelBooking | async).hotelBooking'>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <!-- ksjdhjhsdjh -->
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h4>Guest details</h4>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h5>
+              <form [formGroup]="booking">
+                <div class="row">
+                  <mat-icon matTooltip="Your email address. This will be used for further communication.">email</mat-icon><span class="label-value">{{email}}</span>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <input type="number" (change)="recalculateAmount()" placeholder="Rooms" matInput formControlName="rooms" min="1" max="20">
+                    <mat-error *ngIf="booking.controls.rooms.invalid">
+                      Valid number of rooms - 1 to 20
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <input type="number" placeholder="Guests" matInput formControlName="guests" min="1" max="60">
+                    <mat-error *ngIf="booking.controls.guests.invalid">
+                      Valid number of guests - 1 to 60
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!booking.valid">Confirm</button>
+                </div>
+              </form>
+              <div>
+                <hr>
+                <mat-card-header>
+                  <mat-card-title>
+                    <h4>Value add-ons</h4>
+                  </mat-card-title>
+                </mat-card-header>
+
+                <mat-radio-group [(ngModel)]="selectedCoupon" (change)="recalculateAmount()" [disabled]="!booking.valid">
+                  <div *ngFor="let coupon of couponCodes">
+                    <div class="coupon">
+                      <mat-radio-button [value]="coupon">{{coupon}}</mat-radio-button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="coupon">
+                      <mat-radio-button value="none">I don't want any coupons.</mat-radio-button>
+                    </div>
+                  </div>
+                </mat-radio-group>
+              </div>
+            </h5>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ksjdhjhsdjh -->
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar [ngStyle]="{'background-image': 'url('+image+')', 'background-size': 'cover'}"></div>
+            <mat-card-title>
+              <h4>{{hotel.hotelName }}</h4>
+            </mat-card-title>
+            <mat-card-subtitle>{{ hotel.hotelAddress.street }}, {{ hotel.hotelAddress.city }}, {{ hotel.hotelAddress.state }}, {{ hotel.hotelAddress.country
+              }}, {{ hotel.hotelAddress.pin }}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <h5>
+              <!-- <span>&#8377;</span>{{ hPrice }} <br /> -->
+              <i class="material-icons">arrow_forward</i>{{ search.checkin }}
+              <span class="subtext">(Check in Time: 12:00 PM)</span>
+              <br />
+              <i class="material-icons">arrow_back</i>{{ search.checkout }}
+              <span class="subtext">(Check out Time: 11:00 AM)</span>
+              <br />
+              <hr>
+              <h4>Payment details</h4>
+              <br />
+              <span class="light">
+                Booking amount 
+            </span>
+
+              <span class="subtext">
+              (<span>&#8377;</span>{{hPrice}} x {{booking.value.rooms}} Rooms)
+              </span>
+              <span class="right"><b><span>&#8377;</span>{{sum+disc}}</b>
+              </span>
+              <br />
+              <span class="light">
+              Coupon discount 
+            </span>
+
+              <span class="right">-<b><span>&#8377;</span>{{disc}}</b>
+              </span>
+              <br />
+              <hr>
+              <span>
+              Payable amount 
+            </span>
+
+              <span class="right"><b><span>&#8377;</span>{{sum}}</b>
+              </span>
+            </h5>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>

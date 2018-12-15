@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row" style="margin-left: 0; margin-right: 0">
+    <div class="col-md-4" *ngFor="let coupon of couponList" style="margin-top: 5px; margin-bottom: 5px; ">
+      <mat-card class="example-card">
+        <img mat-card-image src="https://firebasestorage.googleapis.com/v0/b/bookmyroom-1535445796818.appspot.com/o/modern-summer-sale-square-banner-design-93732871.jpg?alt=media&token=ace6e47d-8627-4a5e-8a7d-f7918d341dc3"
+          alt="Summer offer" alt="Special offer" alt="Coupon image">
+        <mat-card-content>
+          <p>
+            <span style="font-size: 0.8em;"><h3>
+               <span class="glyphicon glyphicon-star"></span>Get <span>&#8377;</span> {{ coupon.discount }} off
+            </h3>
+            </span>
+          </p>
+          <span style="margin-left: 10px;" class="coupon-code">Promo code: <code> {{ coupon.referralCode }} </code> </span>
+          <button *ngIf="isAdmin" mat-raised-button color="primary" class="del-btn" (click)="deleteCoupon(coupon.referralCode)">Delete</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<button *ngIf="isAdmin" mat-fab color="primary" matTooltip="Add coupon" (click)="addCoupon()" class="fixedButton"><i class="material-icons">add</i></button>

@@ -1,0 +1,105 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <i class="material-icons">search</i>
+      <span style="text-align: center;">Search and Filters</span>
+    </mat-panel-title>
+    <mat-panel-description>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <app-search></app-search>
+  <hr>
+  <div class="container filter-container">
+
+    <div class="row">
+      <div class="col-xs-6">
+        <strong>Sort by</strong>
+        <br /> Price
+        <span style="margin-left:0.6em;"></span>
+        <i class="material-icons">arrow_downward</i>
+        <span class="spacer"></span>
+        <mat-slide-toggle color="primary" class="example-margin" (change)="sortBy(1)"></mat-slide-toggle>
+        <br /> Price
+        <span style="margin-left:0.6em;"></span>
+        <i class="material-icons">arrow_upward</i>
+        <span class="spacer"></span>
+        <mat-slide-toggle color="primary" class="example-margin" (change)="sortBy(2)"></mat-slide-toggle>
+        <br /> Rating
+        <i class="material-icons">arrow_upward</i>
+        <span class="spacer"></span>
+        <span class="spacer-rating"></span>
+        <mat-slide-toggle color="primary" class="example-margin" [(ngModel)]="Rating" (change)="byRating()"></mat-slide-toggle>
+      </div>
+      <div class="col-xs-6">
+        <strong>Filters</strong>
+        <br />
+        <i matTooltip="AC" class="material-icons">toys</i>
+        <span class="spacer"></span>
+        <mat-slide-toggle color="primary" class="example-margin" [(ngModel)]="AC" (change)="onAcClick()"></mat-slide-toggle>
+        <br />
+        <i matTooltip="WiFi" class="material-icons">wifi</i>
+        <span class="spacer"></span>
+        <mat-slide-toggle color="primary" class="example-margin" [(ngModel)]="WIFI" (change)="onAcClick()"></mat-slide-toggle>
+        <br />
+        <i matTooltip="Food" class="material-icons">fastfood</i>
+        <span class="spacer"></span>
+        <mat-slide-toggle color="primary" class="example-margin" [(ngModel)]="FOOD" (change)="onAcClick()"></mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>
+
+<!-- <div>  
+  <button [disabled]="enabled" id="fixedButton" mat-raised-button color="secondary" (click)="onCompare()">Compare</button>
+</div> -->
+<div class="container-fluid">
+  <div class="row" style="margin: 10px; ">
+    <span>
+      Showing {{ (hotels | async).hotels.length }} results
+    </span>
+    <ol class="breadcrumb">
+        <li><a routerLink="/home">Home</a></li>
+        <li routerLink="hotel" class="active">Search</li>
+      </ol>  
+  </div>
+  <div class="col-sm-6 col-md-4 col-lg-4" style="list-style-type:none" *ngFor="let hotel of ((hotels | async).hotels) | paginate:{itemsPerPage: 6, currentPage: page}; let i = index;">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>
+          <h4>{{hotel.hotelName}}</h4>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="hotel.imageUrls.img1" [alt]="hotel.hotelName">
+      <mat-card-content>
+        <h4>
+          <span>&#8377;</span>{{hotel.hotelPrice}}
+        </h4>
+        <h5>
+          <rating [(ngModel)]="hotel.hotelAverageRating" [readonly]="true"></rating>
+        </h5>
+        <p>
+          <i class="fa fa-map-marker"></i> {{hotel.hotelAddress.city}}
+        </p>
+        <mat-chip-list>
+          <mat-chip *ngIf="hotel.hotelFeatures.ac">AC</mat-chip>
+          <mat-chip *ngIf="hotel.hotelFeatures.wifi" color="primary" selected>WiFi</mat-chip>
+          <mat-chip *ngIf="hotel.hotelFeatures.food" color="accent" selected>Food</mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onView(hotel)">View</button>
+        <button mat-raised-button color="primary" (click)="onBook(hotel)">Book</button>
+        <div class="compareCheckBoxDiv">
+          <mat-checkbox class="compareCheckBox" (change)="comparSelected(hotel)">Add to compare</mat-checkbox>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div>
+  <button class="fixedButton" *ngIf="!enabled" mat-raised-button color="primary" (click)="onCompare()">Compare</button>
+</div>
+<div class="row" style="margin-top: 20px; padding: 10px; text-align: center; font-size: 1.5em;">
+  <pagination-controls (pageChange)="page=$event" class="page"></pagination-controls>
+</div>
+

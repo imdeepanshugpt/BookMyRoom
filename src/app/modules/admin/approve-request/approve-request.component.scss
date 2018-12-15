@@ -1,0 +1,13 @@
+mat-card {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+img {
+    object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+    height: 250px;
+  }
+.example-header-image {
+    background-size: cover;
+}
+
+

@@ -1,0 +1,226 @@
+<form class="example-form" [formGroup]="updateHotel" (ngSubmit)="onSubmit()">
+    <div class="container" *ngFor="let hotel of (edithotels | async).hotels">
+        <h3>Hotel Name</h3>
+        <mat-form-field>
+            <input readonly matInput minlength="5" maxlength="31" autocomplete="off" formControlName="hotelName" value={{hName}} />
+        </mat-form-field>
+        <div *ngIf="hotelName.errors?.minlength">
+            <span>
+        Name must be at least 5 characters long.
+        </span>
+        </div>
+        <div *ngIf="hotelName.errors?.maxlength">
+            <span>
+    Name can't be 30 characters long.
+       </span>
+        </div>
+        <div *ngIf="hotelName.errors?.pattern">
+            <span>
+ Name can't be numbers
+    </span>
+        </div>
+        <h3>Street</h3>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelStreet" value={{hStreet}} placeholder="Edit Hotel Street">
+        </mat-form-field>
+        <div *ngIf="hotelStreet.errors?.minlength">
+            <span>
+        Street must be at least 3 characters long.
+        </span>
+        </div>
+        <div *ngIf="hotelStreet.errors?.maxlength">
+            <span>
+    Street can't be 100 characters long.
+       </span>
+        </div>
+
+
+        <h3>City</h3>
+        <mat-form-field>
+
+            <input matInput placeholder="Edit City name" value={{hCity}} formControlName="hotelCity" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let city of filteredOptions | async" [value]="city">
+                    {{city}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <span>{{errorMessage}}</span>
+
+        <h3>State</h3>
+        <mat-form-field>
+            <mat-select formControlName="hotelState" placeholder="Edit hotel state" value={{hState}}>
+                <mat-option *ngFor="let state of states" [value]="state">
+                    {{state}}
+                </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+        <h3> Pin</h3>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelPin" maxlength="6" placeholder="Edit Hotel PIN" value={{hPin}}>
+        </mat-form-field>
+        <div *ngIf="hotelPin.errors?.minlength">
+            <span>
+        Pin must be at least 6 characters long.
+        </span>
+        </div>
+        <div *ngIf="hotelPin.errors?.maxlength">
+            <span>
+    Pin can't be more than 6 characters
+       </span>
+        </div>
+        <div *ngIf="hotelPin.errors?.pattern">
+            <span>
+ Pin can't contain special characters and alphabets
+    </span>
+        </div>
+        <h3>Country</h3>
+        <mat-form-field>
+            <mat-select formControlName="hotelCountry">
+                <mat-option value="India">
+                    India
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelImg1" placeholder="Edit Image 1 URL" value={{hImg1}}>
+        </mat-form-field>
+        <div *ngIf="hotelImg1.errors?.pattern">
+            <span>
+ Not a valid URL
+    </span>
+        </div>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelImg2" placeholder="Edit Image 2 URL" value={{hImg2}}>
+        </mat-form-field>
+        <div *ngIf="hotelImg2.errors?.pattern">
+            <span>
+ Not a valid URL
+    </span>
+        </div>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelImg3" placeholder="Edit Image 3 URL" value={{hImg3}}>
+        </mat-form-field>
+        <div *ngIf="hotelImg3.errors?.pattern">
+            <span>
+ Not a valid URL
+    </span>
+        </div>
+
+        <h3>Hotel ManagerEmail</h3>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelManagerEmail" placeholder="Edit Hotel Manager Email" value={{hManagerEmail}}>
+        </mat-form-field>
+        <div *ngIf="hotelManagerEmail.errors?.minlength">
+            <span>
+        email must be at least 10 characters long.
+        </span>
+        </div>
+        <div *ngIf="hotelManagerEmail.errors?.maxlength">
+            <span>
+    email can't be 46 characters long.
+       </span>
+        </div>
+        <div *ngIf="hotelManagerEmail.errors?.email || hotelManagerEmail.errors?.pattern">
+            <span>
+ Not a valid email
+    </span>
+        </div>
+
+        <h3>Hotel RegistrationNumber</h3>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelRegistrationNumber" maxlength="3" placeholder="Edit RegistrationNumber"
+                value={{hRegistrationNumber}}>
+        </mat-form-field>
+        <div *ngIf="hotelRegistrationNumber.errors?.minlength">
+            <span>
+                RegisterationNumber must be at least 3 characters long.
+        </span>
+        </div>
+        <div *ngIf="hotelRegistrationNumber.errors?.maxlength">
+            <span>
+                RegisterationNumber can't be more than 3 characters.
+       </span>
+        </div>
+        <div *ngIf="hotelRegistrationNumber.errors?.pattern">
+            <span>
+                RegisterationNumber can't contain numbers
+    </span>
+        </div>
+
+        <h3>Hotel Category </h3>
+        <mat-form-field>
+            <mat-select formControlName="hotelCategory" placeholder="Edit hotel category" value={{hCategory}}>
+                <mat-option value="Luxury">
+                    Luxury
+                </mat-option>
+                <mat-option value="Standard">
+                    Standard
+                </mat-option>
+                <mat-option value="Budget">
+                    Budget
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <h3>Hotel Price </h3>
+        <mat-form-field>
+            <input matInput formControlName="hotelPrice" placeholder="Edit Hotel Price" value={{hPrice}} minlength="3" maxlength="7">
+        </mat-form-field>
+        <span *ngIf="hotelPrice.errors?.pattern">
+            Price can't start with zero and can't contain alphabets
+        </span>
+        <span *ngIf="hotelPrice.errors?.minlength">
+            Minimum price is 100
+        </span>
+        <span *ngIf="hotelPrice.errors?.maxlength">
+            Maximum price is 9999999
+        </span>
+        <h3>Hotel Rooms </h3>
+        <mat-form-field>
+            <input matInput autocomplete="off" formControlName="hotelRoomCount" placeholder="Edit Rooms" value={{hRoomCount}}>
+        </mat-form-field>
+        <div *ngIf="hotelRoomCount.errors?.pattern">
+            <span>
+                Only numbers are allowed
+    </span>
+        </div>
+        <div *ngIf="hotelRoomCount.errors?.max">
+            <span>
+                Only 20 rooms are allowed
+    </span>
+        </div>
+        <h3>Hotel Features</h3>
+        <mat-form-field>
+            <mat-select formControlName="hotelAc" placeholder="AC?">
+                <mat-option value="YES">
+                    YES
+                </mat-option>
+                <mat-option value="NO">
+                    NO
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="hotelWiFi" placeholder="WiFi?">
+                <mat-option value="YES">
+                    YES
+                </mat-option>
+                <mat-option value="NO">
+                    NO
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="hotelFood" placeholder="FOOD?">
+                <mat-option value="YES">
+                    YES
+                </mat-option>
+                <mat-option value="NO">
+                    NO
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button [disabled]="disabled || updateHotel.invalid" mat-flat-button color="primary" value="submit">UPDATE</button>
+    </div>
+</form>

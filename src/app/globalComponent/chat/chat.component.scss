@@ -1,0 +1,33 @@
+form { 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    border: 5px solid #673ab7;
+    border-radius: 40px;
+    background-color: #fff;
+    z-index: 1000;
+}
+.message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid;
+    border-radius: 30px;
+    width: fit-content;
+}
+button {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.row {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+mat-form-field {
+    min-width: 100%;
+    width: auto;
+}
+.user-name {
+    font-size: 10px;
+    color: gray;
+}
